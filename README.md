@@ -47,10 +47,10 @@ Now the first thing to put into your new folder is a 'package.json' file to spec
 }
 `````
 
-This is quite a small package.json file. For a complete guide to creating a package file take a look here http://package.json.nodejitsu.com/ what we have here is short but it will work. Feel free to add to it if you want. Now we've specified the modules we'll be using, installing them is a breeze. Save the file (with a .json extension) and upload it to your directory. Make sure you're in your new directory and on the command line type:
+For a complete guide to creating a package file take a look here http://package.json.nodejitsu.com/, what we have here is short but it will work. Feel free to add to it if you want. Now we've specified the modules we'll be using, installing them is a breeze. Save the file (with a .json extension) and upload it to your directory. Make sure you're in your new directory and on the command line type:
 
 `````
 sudo npm install
 `````
 
-which installs all the modules / dependencies into a node_modules folder, within your directory. Now the fun begins. Let's create our Node script which will handle all our server side stuff. Create a new JavaScript file and save it as whatever you specified it as in your package.json file.   
+This will install all the modules / dependencies into a node_modules folder, within your directory. Now the fun begins. Let's create our Node script which will handle all our server side stuff. Create a new JavaScript file and save it as whatever you specified in your package.json file.   
