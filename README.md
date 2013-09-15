@@ -38,10 +38,10 @@ Now the first thing to put into your new folder is a 'package.json' file to spec
         "start": "node script.js"
     },
     "dependencies": {
-        "express": "3.4.0.x",
-        "socket.io": "0.9.16.x",
+	"express": "3.4.0.x",
+	"socket.io": "0.9.16.x",
 	"mongodb": "1.3.19.x",
-        "mongojs": "0.9.4.x"
+	"mongojs": "0.9.4.x"
     },
     "engine": "node 0.10.18"
 }
