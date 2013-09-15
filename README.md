@@ -27,7 +27,7 @@ mkdir directoryname
 cd directoryname
 `````
 
-Now the first thing to put into your new folder is a 'package.json' file to specify your project details. Open up your text editor, create a new json file (js will do if you're using Dreamweaver) and copy and paste the following JSON object in. Replace the name, version etc with whatever you wish. The scripts.start value is what you'll type into the command line to start your application. I'm going to call my Node script 'script.js' but you can call it whatever you want. Check the version numbers of our dependencies at https://npmjs.org/ (the x means npm will attempt to use the latest version) and update accordingly. You can add dependencies if required.
+Now the first thing to put into your new folder is a 'package.json' file to specify your project details. Open up your text editor, create a new json file (js will do if you're using Dreamweaver) and copy and paste the following JSON object in. Replace the name, version etc with whatever you wish. The scripts.start value is what you'll type into the command line to start your application. I'm going to call my Node script 'script.js' but you can call it whatever you want. Check the version numbers of our dependencies at https://npmjs.org/ and update accordingly. You can add dependencies if required.
 
 `````json
 {
@@ -38,10 +38,10 @@ Now the first thing to put into your new folder is a 'package.json' file to spec
         "start": "node script.js"
     },
     "dependencies": {
-		"express": "3.4.0.x",
-		"socket.io": "0.9.16.x",
-		"mongodb": "1.3.19.x",
-		"mongojs": "0.9.4.x"
+		"express": "3.4.0",
+		"socket.io": "0.9.16",
+		"mongodb": "1.3.19",
+		"mongojs": "0.9.4"
     },
     "engine": "node 0.10.18"
 }
