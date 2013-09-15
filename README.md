@@ -34,6 +34,8 @@ Now the first thing to put into your new folder is a 'package.json' file to spec
     "name": "boilerplate",
     "version": "0.0.1",
     "private": true,
+    "author": "Mike Chadwick <mike@digitalandwise.com>",
+    "description": "A Node.js boilerplate",
     "scripts": {
         "start": "node script.js"
     },
