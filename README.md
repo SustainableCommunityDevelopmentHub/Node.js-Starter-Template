@@ -1,12 +1,12 @@
-Node.js-Boilerplate
+Node.js-Basic-Boilerplate
 ===================
 
 A simple but effective Node.js Boilerplate using ExpressJS, MongoDB, MongoJS & SocketIO. 
 
-Below is a quick walkthrough in how to get set up quickly and moving with the above. It's meant strictly for beginners to Node so any non-novices please stop reading... now! To show its use i've made a basic chat application as it's a nice way of showing how the components can be used (WebSockets etc.) and leaves a basic framework that is easily edited to perform all the typical functionality needed by a website.
+Below is a quick walkthrough in how to get set up quickly and moving with the above. It's meant strictly for beginners to Node so any non-novices please stop reading... now! Express is used as the server side framework giving us easy ways to provide typical server functionality. Socket.IO allows us to use WebSockets as our data transfer method which gives us real-time capabilities and a nice substitute for AJAX. MongoDB will be our data store and MongoJS our simplified API making interacting with MongoDB from script easy. To show these modules in action i've made a basic chat application as it's a nice way of showing how the components can be used together and leaves a basic framework that is easily edited to perform all the typical functionality of a website.
 
 
-I'm assuming you have a server with Node installed and can connect to it via the command line using Putty or something similar. First thing i'd recommend doing is to get up to date with the latest stable version of Node. This is really easy - make sure you're in your root directory and type the following into the command line:
+I'm assuming you have a server with Node installed and can connect to it via a command line interface. First thing i'd recommend doing is to get up to date with the latest stable version of Node. This is really easy - make sure you're in your root directory and type the following into the command line:
 
 `````
 sudo npm cache clean -f
@@ -71,7 +71,7 @@ var express = require( 'express' ),	//	import express module
 	server = require( 'http' ).createServer( app );	//	create the server to listen for connections
 `````
 
-Ok so now what I like to do is create a public folder within my working directory for all my static files (HTML, CSS, JS, images etc.). Create one and then create an index.html file and pop it in there (stick a h1 tag in there or something so you can tell if your server's working when we boot it up). Now we need to tell the server which port to listen for connections on (I'm using 1337) and point our app the directory holding all our static files. Add the following lines to your script:
+Ok so now what I like to do is create a 'public' folder within my working directory for all my static files (HTML, CSS, JS, images etc.). Create one and then create an index.html file and pop it in there (stick a h1 tag in there or something so you can tell if your server's working when we boot it up). Now we need to tell the server which port to listen for connections on (I'm using 1337) and point our app to the directory holding all our static files. Add the following lines to your script:
 
 `````javascript
 //	listen for connections on port 1337
@@ -83,4 +83,18 @@ app.use( express.static( __dirname + '/public' ) );
 
 `````
 
+Now we can test the Node server is working. Save and upload your script to your project's root directory (not the 'public' directory - this is important). Go to the command line and type to boot the server:
 
+`````
+node-dev script.js
+`````
+
+Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to your server's URL (if you're running it locally it'll be localhost) and specify the port after it with a colon e.g. localhost:1337. Your index.html file should now be served to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
+
+OK time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
+
+`````javascript
+	io = require( 'socket.io' ).listen( server );	//	listen for socket events
+`````
+
+This statement imports the Socket.IO module and tells it to listen for socket events via our server. Make sure you keep adjusting the commas after each variable declaration. 
