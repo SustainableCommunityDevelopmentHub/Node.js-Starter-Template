@@ -79,9 +79,9 @@ Ok so now create a 'public' folder within your working directory for all your st
 │   ├── package.json
 │   ├── public
 │       ├── css
-│   	├── js
-│   	├── img
-│   	└── index.html
+│   	  ├── js
+│   	  ├── img
+│   	  └── index.html
 `````
 
 Now we need to tell the server which port to listen for connections on (I'm using 1337) and point our app to the directory holding all our static files. Add the following lines to your script:
