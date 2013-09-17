@@ -71,7 +71,20 @@ var express = require( 'express' ),	//	import express module
 	server = require( 'http' ).createServer( app );	//	create the server to listen for connections
 `````
 
-Ok so now what I like to do is create a 'public' folder within my working directory for all my static files (HTML, CSS, JS, images etc.). Create one and then create an index.html file and pop it in there (stick a h1 tag in there or something so you can tell if your server's working when we boot it up). Now we need to tell the server which port to listen for connections on (I'm using 1337) and point our app to the directory holding all our static files. Add the following lines to your script:
+Ok so now create a 'public' folder within your working directory for all your static files (HTML, CSS, JS, images etc.). You can call it whatever you want. Create the directory and then create an index.html file and pop it in there (stick a h1 tag in there or something so you can tell if your server's working when we boot it up). Eventually your app's directory structure will look something like this, depending on what you've put in there (add whatever you want within the public folder):
+
+`````
+├── app
+│   ├── script.js
+│   ├── package.json
+│   ├── public
+│       ├── css
+│   	├── js
+│   	├── img
+│   	└── index.html
+`````
+
+Now we need to tell the server which port to listen for connections on (I'm using 1337) and point our app to the directory holding all our static files. Add the following lines to your script:
 
 `````javascript
 //	listen for connections on port 1337
@@ -91,10 +104,22 @@ node-dev script.js
 
 Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to your server's URL (if you're running it locally it'll be localhost) and specify the port after it with a colon e.g. localhost:1337. Your index.html file should now be served to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
 
+
 OK time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
 
 `````javascript
-	io = require( 'socket.io' ).listen( server );	//	listen for socket events
+io = require( 'socket.io' ).listen( server );	//	listen for socket events
 `````
 
-This statement imports the Socket.IO module and tells it to listen for socket events via our server. Make sure you keep adjusting the commas after each variable declaration. 
+This will import the Socket.IO module and tell it to listen for socket events via our server. For a full list of all events available through the Socket.IO object created ('io') have a look here: https://github.com/LearnBoost/socket.io/wiki/Exposed-events. The first event we'll use is the 'connection' event, which fires every time a new connection is made to the server from any web page in our application. From this event we can grab the socket details for every user who connects to our app.
+
+
+When you broadcast a socket event it will emit globally to all sockets connected to the app, unless you specify a specific socket id to send it to. Therefore we'll grab the socket id of each user and store it on the client and server to allow us to broadcast to specific users and identify who has disconnected when a user shuts the browser window down. Beneath the public folder declaration in your Node script add the following:
+
+`````javascript
+io.sockets.on( 'connection', function ( socket ) {
+	// grab socket.id of newly connected user here
+});
+`````
+
+
