@@ -6,7 +6,7 @@ A simple but effective Node.js Boilerplate using ExpressJS, MongoDB, MongoJS & S
 Below is a quick walkthrough in how to get set up quickly and moving with the above. It's meant strictly for beginners to Node so any non-novices please stop reading... now! Express is used as the server side framework giving us easy ways to provide typical server functionality. Socket.IO allows us to use WebSockets as our data transfer method which gives us real-time capabilities and a nice substitute for AJAX. MongoDB will be our data store and MongoJS our simplified API making interacting with MongoDB from script easy. To show these modules in action i've made a basic chat application as it's a nice way of showing how the components can be used together and leaves a basic framework that is easily edited to perform all the typical functionality of a website.
 
 
-I'm assuming you have a server with Node installed and can connect to it via a command line interface. First thing i'd recommend doing is to get up to date with the latest stable version of Node. This is really easy - make sure you're in your root directory and type the following into the command line:
+I built this using a remote server, care of RackSpace, with Debian installed as the OS. I'm assuming you have something similar (with Node installed) and can connect to the server via a terminal / command line interface. First thing i'd recommend doing is to get up to date with the latest stable version of Node. This is really easy - make sure you're in your root directory and type the following into the command line:
 
 `````
 sudo npm cache clean -f
@@ -102,7 +102,7 @@ Now we can test the Node server is working. Save and upload your script to your 
 node-dev script.js
 `````
 
-Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to your server's URL (if you're running it locally it'll be localhost) and specify the port after it with a colon e.g. localhost:1337. Your index.html file should now be served to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
+Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to your server's URL specifying the port after it with a colon e.g. localhost:1337. Your index.html file should now be served to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
 
 
 OK time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
