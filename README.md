@@ -135,7 +135,7 @@ io.sockets.on( 'connection', function ( socket ) {
 });
 `````
 
-Now we just need to hook it up on the clent-side to establish the connection to the server. We aren't going to do that for the index page because its purpose is just to allow users to login to our chat application. We'll come back to Socket.IO shortly. With regards to CSS, I've only used the most basic of styling for this app, but I've linked to Bootstrap 3 (via a CDN) so it's there for future use when you turn this 'boilerplate' into your own application / website. Bootstrap was grabbed from here http://www.bootstrapcdn.com/?v=082013. 
+Now we just need to hook it up on the client-side to establish the connection to the server. We aren't going to do that for the index page because its purpose is just to allow users to login to our chat application. We'll come back to Socket.IO shortly. With regards to CSS, I've only used the most basic of styling for this app, but I've linked to Bootstrap 3 (via a CDN) so it's there for future use when you turn this 'boilerplate' into your own application / website. Bootstrap was grabbed from here http://www.bootstrapcdn.com/?v=082013. 
 
 <h3>Index (Login) Page</h3>
 
