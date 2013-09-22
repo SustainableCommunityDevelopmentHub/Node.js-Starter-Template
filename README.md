@@ -1,11 +1,11 @@
 Node.js-Basic-Boilerplate
 ===================
 
-A simple but effective Node.js Boilerplate using ExpressJS, MongoDB, MongoJS & SocketIO.
+A simple but effective Node.js 'Boilerplate' using ExpressJS, MongoDB, MongoJS & SocketIO.
 
 <h3>Intro</h3>
 
-This is more of a template than a fully fledged boilerplate. The idea here is to show how each of the above components works and to leave an easily editable boilerplate of sorts that can be customised into most types of websites or web applications. You can either download the files, install the modules and then use it to make whatever you want or follow the walkthrough to learn about how the whole thing works for people just starting out with Node and friends. It's meant just for beginners so, to any non-novices, you can stop reading now! 
+This is more of a template than a fully fledged boilerplate. The idea here is to show how to configure each of the above components and to leave an easily editable set of files that can be customised into most types of websites or web applications. You can either download the files, install the modules and use it to make whatever you want or follow the walkthrough to learn about how the whole thing works, meant for people just starting out with Node. It's meant just for beginners so, to any experienced Node developers, you can stop reading now! 
 
 <h3>Modules and Pre-requisites</h3>
 
