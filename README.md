@@ -88,7 +88,7 @@ Ok so now create a 'public' folder within your working directory for all your st
 │   ├── package.json
 │   ├── public
 │       ├── css
-│	    ├── style.css
+│	    	  ├── style.css
 │   	  ├── js
 │   	  ├── img
 │ 	  ├── index.html
