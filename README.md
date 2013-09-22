@@ -1,12 +1,19 @@
 Node.js-Basic-Boilerplate
 ===================
 
-A simple but effective Node.js Boilerplate using ExpressJS, MongoDB, MongoJS & SocketIO. 
+A simple but effective Node.js Boilerplate using ExpressJS, MongoDB, MongoJS & SocketIO.
 
-Below is a quick walkthrough in how to get set up quickly and moving with the above. It's meant strictly for beginners to Node so any non-novices please stop reading... now! Express is used as the server side framework giving us easy ways to provide typical server functionality. Socket.IO allows us to use WebSockets as our data transfer method which gives us real-time capabilities and a nice substitute for AJAX. MongoDB will be our data store and MongoJS our simplified API making interacting with MongoDB from script easy. To show these modules in action i've made a basic chat application as it's a nice way of showing how the components can be used together and leaves a basic framework that is easily edited to perform all the functionality needed by a typical website.
+<h3>Intro</h3>
 
+The idea here is to get the above set up quickly and easily, to show how each component works and to leave an easily editable boilerplate of sorts that can be customised into most types of websites or web applications. I've written a walkthrough guide explaining the whole set up process to help people starting out. It's meant strictly for beginners to Node so, to any non-novices, you can stop reading now! 
 
-I built this using a remote server, care of RackSpace, with Debian installed as the OS. I'm assuming you have something similar (with Node installed) and can connect to the server via a terminal / command line interface. First thing i'd recommend doing is to get up to date with the latest stable version of Node. This is really easy - make sure you're in your root directory and type the following into the command line:
+<h3>Modules and Pre-requisites</h3>
+
+Express is used as the server side framework giving us easy ways to provide typical server functionality. Socket.IO allows us to use WebSockets as our data transfer method which gives us real-time capabilities and a nice substitute for AJAX. MongoDB will be our data store and MongoJS our simplified API making interacting with MongoDB from script easy. To show these modules in action i've made a basic chat application as it's a nice way of showing how the components can be used together and leaves a basic framework that is easily edited to perform all the functionality needed by a typical website. I built this using a remote server, care of RackSpace, with Debian installed as the OS. I'm assuming you have something similar (with Node installed) and can connect to the server via a terminal / command line interface. 
+
+<h3>Setup</h3>
+
+First thing i'd recommend doing is to get up to date with the latest stable version of Node. This is really easy - make sure you're in your root directory and type the following into the command line:
 
 `````
 sudo npm cache clean -f
@@ -54,6 +61,7 @@ For a complete guide to creating a package file take a look here http://package.
 `````
 sudo npm install
 `````
+<h3>The Server Script</h3>
 
 This will install all the modules / dependencies listed in the package file into a node_modules folder, within your directory. Now the fun begins. First we'll need to create a Node script file to handle all the server side behaviour. Create a new JavaScript file and save it as whatever you specified in your package.json file. As we're using Express as the framework for our application the first thing to do is initialise a new Express app. Type the following into your script (comments are optional):
 
@@ -70,6 +78,7 @@ var express = require( 'express' ),	//	import express module
 	app = express(),	//	create new express application
 	server = require( 'http' ).createServer( app );	//	create the server to listen for connections
 `````
+<h3>The 'Public' Folder</h3>
 
 Ok so now create a 'public' folder within your working directory for all your static files (HTML, CSS, JS, images etc.). You can call it whatever you want. Create the directory and then create an index.html file and pop it in there (stick a h1 tag in there or a page title or something so you can tell if your server's working when we boot it up). Eventually your app's directory structure will look something like this, depending on what you've put in there (add whatever you want within the public folder):
 
@@ -105,6 +114,7 @@ node-dev script.js
 
 Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to the URL tied to your server, specifying the port after it with a colon e.g. www.mysite.com:1337. Your index.html file will now be served up to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
 
+<h3>Socket.IO</h3>
 
 OK, time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
 
@@ -125,6 +135,8 @@ io.sockets.on( 'connection', function ( socket ) {
 `````
 
 Now we just need to hook it up on the clent-side to establish the connection to the server. We aren't going to do that for the index page because we're just going to use that to allow users to login to our chat application. I'm only going to use the most basic of styling for this app, but I've link to Bootstrap 3 via a CDN so it's there for future use when you turn this 'boilerplate' into your own application / website. The CDN is here http://www.bootstrapcdn.com/?v=082013. 
+
+<h3>Index (Login) Page</h3>
 
 Below is the HTML for the index page. I've kept it nice and simple; we'll use local storage to store the username of the user and start using sockets on the next page we'll create - our chat application.
 
@@ -172,7 +184,9 @@ Below is the HTML for the index page. I've kept it nice and simple; we'll use lo
 
 There's a meta tag in the head to make it mobile friendly and a link to a CSS file with a bit of basic styling for the holder div. Bootstrap takes care of the rest. I'll show the CSS file later (it's tiny). Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
 
-The idea behind the chat app is MongoDB will store the user's name and socket id which will be updated everytime a user connects or disconnects so we can display exactly who is online at any given time. We'll allow people to choose whether they want their message to transmit to all the users online or to send a 'private' message to a specific user. Let's begin by configuring MongoDB. On the command line simply type mongo to enter the Mongo shell. First off, here are a few useful Mongo commands: 
+<h3>MongoDB / MongoJS</h3>
+
+The idea behind the chat app is MongoDB will store the user's name and socket id which will be updated everytime a user connects or disconnects which allows us to display exactly who is online at any given time. We'll let people choose whether they want their message to transmit to all the users online or to send a 'private' message to a specific user. Let's begin by configuring MongoDB. On the command line simply type mongo to enter the Mongo shell. First off, here are a few useful Mongo commands. Use these to create your database and collection to store the users details. I've called my database 'chat' and my collection 'users' (you call them whatever you want): 
 
 Show all databases (usually there is a local one created by default).
 
@@ -202,5 +216,14 @@ db.collection_name.insert( { attr_name : value, attr2_name : value… etc. } )
 Remove a record from the collection
 
 `````
-db.collection_name.remove( { attr_name : value, attr2_name : value… etc. } ) 
+db.collection_name.remove( { attr_name : value, attr2_name : value… etc. } )
+`````
+
+Now we have our database and collection let's hook it up to our server script. We'll use MongoJS which provides a nice, simple interface to let us easily interact with our database. In your Node script, add the following to the list of variables:
+
+`````javascript
+ObjectId = require( 'mongodb' ).ObjectID,	//	create ObjectId object to access the id within mongo collections
+databaseUrl = "mongodb://localhost:27017/chat", //	specify database name here
+collections = [ "users" ],	//	specify collections within database here
+db = require( "mongojs" ).connect( databaseUrl, collections );	//	create database object
 `````
