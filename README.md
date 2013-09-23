@@ -115,28 +115,6 @@ node-dev script.js
 
 Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to the URL tied to your server, specifying the port after it with a colon e.g. www.mysite.com:1337. Your index.html file will now be served up to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
 
-<h3>Socket.IO</h3>
-
-OK, time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
-
-`````javascript
-io = require( 'socket.io' ).listen( server );	//	listen for socket events
-`````
-
-This will import the Socket.IO module and tell it to listen for socket events via our server. For a full list of all events available through the Socket.IO object created ('io') have a look here: https://github.com/LearnBoost/socket.io/wiki/Exposed-events. The first event we'll use is the 'connection' event, which fires every time a new connection is made to the server from any web page in our application. From this event we can grab the socket details for every user who connects to our app.
-
-
-When you broadcast a socket event from the server it will emit globally to all sockets connected to the app, unless you specify a specific socket id to send it to. Therefore we'll need to grab the socket id of each user and store it on the client and the server (in our database) to allow us to broadcast to specific users and identify who has disconnected when a user shuts the browser window down. Beneath the public folder declaration in your Node script add the following:
-
-`````javascript
-io.sockets.on( 'connection', function ( socket ) {
-	// grab socket.id of newly connected user here
-	// and do other stuff
-});
-`````
-
-Now we just need to hook it up on the client-side to establish the connection to the server. We aren't going to do that for the index page because its purpose is just to allow users to login to our chat application. We'll come back to Socket.IO shortly. With regards to CSS, I've only used the most basic of styling for this app, but I've linked to Bootstrap 3 (via a CDN) so it's there for future use when you turn this 'boilerplate' into your own application / website. Bootstrap was grabbed from here http://www.bootstrapcdn.com/?v=082013. 
-
 <h3>Index (Login) Page</h3>
 
 Below is the HTML for the index page. I've kept it nice and simple; we'll use local storage to store the username of the user and start using sockets on the next page when we create our actual chat application.
@@ -183,7 +161,7 @@ Below is the HTML for the index page. I've kept it nice and simple; we'll use lo
 </html>
 `````
 
-There's a meta tag in the head to make it mobile friendly and a link to a CSS file with a bit of basic styling for the holder div. Bootstrap takes care of the rest. I'll show the CSS file later (it's tiny). Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
+With regards to CSS, I've only used the most basic of styling for this app, but I've linked to Bootstrap 3 (via a CDN) so it's there for future use when you turn this 'boilerplate' into your own application / website. Bootstrap was grabbed from here http://www.bootstrapcdn.com/?v=082013. There's a meta tag in the head to make it mobile friendly and a link to a CSS file with a bit of basic styling for the holder div. Bootstrap takes care of the rest. I'll show the CSS file later (it's tiny). Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
 
 <h3>MongoDB / MongoJS</h3>
 
@@ -227,4 +205,42 @@ ObjectId = require( 'mongodb' ).ObjectID,	//	create ObjectId object to access th
 databaseUrl = "mongodb://localhost:27017/chat", //	specify database name here
 collections = [ "users" ],	//	specify collections within database here
 db = require( "mongojs" ).connect( databaseUrl, collections );	//	create database object
+`````
+
+<h3>Socket.IO</h3>
+
+OK, time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
+
+`````javascript
+io = require( 'socket.io' ).listen( server );	//	listen for socket events
+`````
+
+This will import the Socket.IO module and tell it to listen for socket events via our server. For a full list of all events available through the Socket.IO object created ('io') have a look here: https://github.com/LearnBoost/socket.io/wiki/Exposed-events. The first event we'll use is the 'connection' event, which fires every time a new connection is made to the server from any web page in our application. From this event we can grab the socket details for every user who connects to our app.
+
+
+When you broadcast a socket event from the server it will emit globally to all sockets connected to the app, unless you specify a specific socket id to send it to. Therefore we'll need to grab the socket id of each user and store it on the client and the server (in our database) to allow us to broadcast to specific users and identify who has disconnected when a user shuts the browser window down. Beneath the public folder declaration in your Node script add the following:
+
+`````javascript
+io.sockets.on( 'connection', function ( socket ) {
+	// grab socket.id of newly connected user here
+	// and do other stuff
+});
+`````
+
+Now we just need to hook it up on the client-side to establish the connection to the server. We don't need it for the index page as we're using local storage to store the user's name but we'll use it for the chat.html page. The first thing we'll do on here is connect to Socket.IO. I've put the script tags in the document head. You can put them above the closing body tag but establishing a socket connection is necessary to get essential page content, so I'd rather put them in the head. Here's how it looks:
+
+`````html
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	//	connect to socket on server
+	var socket = io.connect( 'http://mywebsite.com:1337' ),
+		user = localStorage.getItem( 'user' );
+			
+	if ( user === "" || user === undefined || user === null  ) {
+		window.location = 'index.html';			
+	}
+	else {
+		localStorage.removeItem( 'user' );
+	}
+</script>
 `````
