@@ -1,7 +1,7 @@
-Node.js-Basic-Boilerplate
+Node.js-Starter Template
 ===================
 
-A simple but effective Node.js 'Boilerplate' using ExpressJS, MongoDB, MongoJS & SocketIO.
+A simple but effective Node.js Starter Template using ExpressJS, MongoDB, MongoJS & SocketIO.
 
 <h3>Intro</h3>
 
