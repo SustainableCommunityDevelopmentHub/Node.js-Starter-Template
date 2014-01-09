@@ -9,7 +9,7 @@ This is more of a template than a fully fledged boilerplate. The idea here is to
 
 <h3>Modules and Pre-requisites</h3>
 
-Express is used as the server-side framework giving us easy ways to provide typical server functionality. Socket.IO allows us to use WebSockets as our data transfer method which gives us real-time capabilities and a nice substitute for AJAX. MongoDB will be our data store and MongoJS our simplified API, making interacting with MongoDB from script easy. To show these modules in action I've made a basic chat application as it's a nice way of showing how the components can be used together and leaves a basic framework that is easily edited to perform all the functionality needed by a typical website. I built this using a remote server, care of RackSpace, with Debian installed as the OS. I'm assuming you have something similar (with Node installed) and can connect to the server via a terminal / command line interface. 
+Express is used as the server-side framework giving us easy ways to provide typical server functionality. Socket.IO allows us to use WebSockets as our data transfer method which gives us real-time capabilities and a nice substitute for AJAX. MongoDB will be our data store and MongoJS our simplified API, making interacting with MongoDB from script easy. To show these modules in action I've made a basic chat application as it's a nice way of showing how the components can be used together and leaves a basic framework that is easily edited to perform all the functionality needed by a typical website.
 
 <h3>Setup</h3>
 
@@ -34,7 +34,7 @@ mkdir directoryname
 cd directoryname
 `````
 
-The first thing to put into your new folder is a 'package.json' file to specify your project details. Open up your text editor, create a new json file (js will do if you're using Dreamweaver) and copy and paste the below JSON object in. Replace the name, version etc with whatever you wish. The 'start' value is what you'll type into the command line to start your application. I'm going to call my Node script 'script.js' but you can call it whatever you want. Check the version numbers of the dependencies at https://npmjs.org/ and update the JSON accordingly. You can add extra dependencies if you want.
+The first thing to put into your new folder is a 'package.json' file to specify your project details. Open up your text editor, create a new json file and copy and paste the below JSON object in. Replace the name, version etc with whatever you wish. The 'start' value is what you'll type into the command line to start your application. I'm going to call my Node script 'script.js' but you can call it whatever you want. Check the version numbers of the dependencies at https://npmjs.org/ and update the JSON accordingly. Add extra dependencies if you want.
 
 `````json
 {
@@ -63,7 +63,7 @@ sudo npm install
 `````
 <h3>The Server Script</h3>
 
-This will install all the modules / dependencies listed in the package file into a node_modules folder, within your directory. Now the fun begins. First we'll need to create a Node script file to handle all the server side behaviour. Create a new JavaScript file and save it as whatever you specified in your package.json file. As we're using Express as the framework for our application the first thing to do is initialise a new Express app. Type the following into your script (comments are optional):
+This will install all the modules / dependencies listed in the package file into a node_modules folder, within your directory. Now the fun begins. First we'll need to create a Node script file to handle all the server side behaviour. Create a new JavaScript file and save it as whatever you specified in your package.json file. As we're using Express as the framework for our application the first thing to do is initialise a new Express app. Type the following into your script:
 
 `````javascript
 var express = require( 'express' ),	//	import express module
@@ -80,7 +80,7 @@ var express = require( 'express' ),	//	import express module
 `````
 <h3>The 'Public' Folder</h3>
 
-Ok so now create a 'public' folder within your working directory for all your static files (HTML, CSS, JS, images etc.). You can call it whatever you want. Create the directory and then create an index.html file and pop it in there (stick a h1 tag in there or a page title or something so you can tell if your server's working when we boot it up). Eventually your app's directory structure will look something like this, depending on what you've put in there (add whatever you want within the public folder):
+Ok so now create a 'public' folder within your working directory for all your static files (HTML, CSS, JS, images etc.). Call it whatever you want. Create the directory and an index.html file and pop it in there (stick a h1 tag in there or a page title or something so you can tell if your server's working when we boot it up). Eventually your app's directory structure will look something like this:
 
 `````
 ├── app
@@ -113,7 +113,7 @@ Now we can test the Node server is working. Save and upload your script to your 
 node-dev script.js
 `````
 
-Replace 'script.js' with whatever you've named your Node script. Open up your browser and go to the URL tied to your server, specifying the port after it with a colon e.g. www.mysite.com:1337. Your index.html file will now be served up to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
+Replace 'script.js' with whatever you've named your Node script. Open up your browser and test your application is working, specifying the port in the URL e.g. www.mysite.com:1337. Your index.html file will now be served to the browser. The reason we typed 'node-dev' and not just 'node' on the command line is that the '-dev' bit allows us to make changes to our script file, upload them and have the server automatically restart, saving us from manually having to do it.
 
 <h3>Index (Login) Page</h3>
 
@@ -161,11 +161,11 @@ Below is the HTML for the index page. I've kept it nice and simple; we'll use lo
 </html>
 `````
 
-With regards to CSS, I've only used the most basic of styling for this app, but I've linked to Bootstrap 3 (via a CDN) so it's there for future use when you turn this 'boilerplate' into your own application / website. Bootstrap was grabbed from here http://www.bootstrapcdn.com/?v=082013. There's a meta tag in the head to make it mobile friendly and a link to a CSS file with a bit of basic styling for the holder div. Bootstrap takes care of the rest. I'll show the CSS file later (it's tiny). Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
+With regards to CSS, I've only used the most basic of styling for this app; I've used Bootstrap 3 (via a CDN) so it's there for future use when you turn this template into your own application / website. Delete it if you don't want to use a framework. Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
 
 <h3>MongoDB / MongoJS</h3>
 
-The way the chat app will work is simple; MongoDB will store the user's name and socket id and we'll update the database everytime a user connects or disconnects, allowing us to display exactly who is online at any given time. We'll let people choose whether they want their message to transmit to all the users online or to send a 'private' message to a specific user. Let's begin by configuring MongoDB. On the command line simply type 'mongo' to enter the Mongo shell. First off, here are a few useful Mongo commands. Use these to create your database and collection to store the user details. I've called my database 'chat' and my collection 'users' (you call them whatever you want): 
+The way the chat app will work is simple; MongoDB will store the user's name and socket id and we'll update the database everytime a user connects or disconnects, allowing us to display who's online at any given time. We'll let people choose whether they want their message to transmit to all the users online or to send a 'private' message to a specific user. Let's begin by configuring MongoDB. On the command line simply type 'mongo' to enter the Mongo shell. First off, here are a few useful Mongo commands. Use these to create your database and collection to store the user details. I've called my database 'chat' and my collection 'users' (you call them whatever you want): 
 
 Show all databases (usually there is a local one created by default).
 
@@ -198,7 +198,7 @@ Remove a record from the collection
 db.collection_name.remove( { attr_name : value, attr2_name : value… etc. } )
 `````
 
-Now we have our database and collection let's hook it up to our server script. We'll use MongoJS which provides a nice, simple API to let us easily interact with our database. In your Node script, add the following to the list of variables:
+Now we have our database and collection let's hook it up to our server script. We'll use MongoJS which provides a simple API to let us easily interact with our database. In your Node script, add the following to the list of variables:
 
 `````javascript
 ObjectId = require( 'mongodb' ).ObjectID,	//	create ObjectId object to access the id within mongo collections
@@ -209,7 +209,7 @@ db = require( "mongojs" ).connect( databaseUrl, collections );	//	create databas
 
 <h3>Socket.IO</h3>
 
-OK, time to incorporate Socket.IO. Socket.IO is a great way to provide WebSocket functionality quickly and easily into your website, bringing with it all the benefits that WebSockets have over standard HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
+OK, time to incorporate Socket.IO. Socket.IO gives us WebSocket functionality, bringing with it all the benefits that WebSockets have over HTTP connections. We'll use WebSockets as a replacement for AJAX so we can send data to and from the server to users without the need for a page refresh. Go back to your script file and add the following to your list of variables:
 
 `````javascript
 io = require( 'socket.io' ).listen( server );	//	listen for socket events
@@ -236,7 +236,7 @@ Now we just need to hook it up on the client-side to establish the connection to
 	var socket = io.connect( 'http://mywebsite.com:1337' ),
 		user = localStorage.getItem( 'user' );
 			
-	if ( user === "" || user === undefined || user === null  ) {
+	if ( user === undefined || user === null  ) {
 		window.location = 'index.html';			
 	}
 	else {
