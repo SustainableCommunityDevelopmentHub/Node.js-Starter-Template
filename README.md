@@ -117,41 +117,27 @@ Replace 'script.js' with whatever you've named your Node script. Open up your br
 
 <h3>Index (Login) Page</h3>
 
-Below is the HTML for the index page. I've kept it nice and simple; we'll use local storage to store the username of the user and start using sockets on the next page when we create our actual chat application.
+Below is a snippet of the HTML for the index page. I've kept it nice and simple; we'll use local storage to store the username of the user and start using sockets on the next page when we create our actual chat application.
 
 `````html
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width" name="viewport">
-    <title>Chat Login</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-<body>
-	<div class="holder">
-    	<h1>Welcome to Chat</h1>
-        <h2>Login here</h2>
-        <form role="form">
-          <div class="form-group">
-            <label for="name">Please enter your name</label>
-            <input type="text" class="form-control" id="name" autofocus placeholder="Enter name">
-          </div>
+
+          <label for="name">Please enter your name</label>
+          <input type="text" class="form-control" id="name" autofocus placeholder="Enter name">
+          
           <p class="help-block">Enter your name to login in to chat.</p>
-          <button id="submit" type="submit" class="btn btn-default">Submit</button>
-        </form>
-    </div>
+          <button id="submit" class="btn btn-default">Submit</button>
+    
+   
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script>
 
-	$( '#submit' ).click( function (e) {
-        e.preventDefault();
-		if( $( '#name' ).val().length < 3 ) {
+	$( '#submit' ).click( function () {
+		var name = $( '#name' ).val();
+		if( name.length < 3 ) {
 			$( '.help-block' ).text( 'Please enter a name with at least 3 characters.' );
 		}
 		else {
-			localStorage.setItem( 'user', $( '#name' ).val() );
+			localStorage.setItem( 'user', name );
 			window.location = 'chat.html';		
 		}
     });
@@ -161,7 +147,7 @@ Below is the HTML for the index page. I've kept it nice and simple; we'll use lo
 </html>
 `````
 
-With regards to CSS, I've only used the most basic of styling for this app; I've used Bootstrap 3 (via a CDN) so it's there for future use when you turn this template into your own application / website. Delete it if you don't want to use a framework. Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
+Now we need to create a chat.html page to handle our chat app. Like everything else that's served to the user we'll need to put it in the public folder.
 
 <h3>MongoDB / MongoJS</h3>
 
@@ -236,7 +222,7 @@ Now we just need to hook it up on the client-side to establish the connection to
 	var socket = io.connect( 'http://mywebsite.com:1337' ),
 		user = localStorage.getItem( 'user' );
 			
-	if ( user === undefined || user === null  ) {
+	if ( user === undefined  ) {
 		window.location = 'index.html';			
 	}
 	else {
