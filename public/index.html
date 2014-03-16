@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">	
+	<title>Node Chat App</title>
+	<link href="styles/css/bootstrap.min.css" rel="stylesheet" media="all">
+	<link href="styles/css/style.css" rel="stylesheet" media="all">
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+
+			<div class="col-sm-4 holder">
+
+				<form role="form" data-bind="visible: userNotOnline">
+					<div class="form-group">
+						<h2>Sign In To Chat</h2>
+						<label for="username">Enter a Username</label>
+						<input type="text" autofocus="autofocus" data-bind="value: userName" class="form-control" id="username" pattern=".{3,15}" required placeholder="Enter your username">
+					</div>
+					<button type="submit" data-bind="click: addUser" class="btn btn-default">Sign In</button>
+				</form>
+
+				<div id="msgBox" data-bind="visible: userOnline">
+					
+					<h2>Write Message <span data-bind="text: userName"></span></h2>
+					
+					<label for="sendTo">Choose Recipients:</label>
+					<select id="recipientSelect" data-bind="options: $root.users, optionsText: 'name', optionsValue: 'id', optionsCaption: 'All Users'" class="form-control">
+					</select>
+					<button type="submit" id="selectRecipient" data-bind="click: addRecipients" class="btn btn-default">Select Recipient(s)</button>
+					
+					<label for="listOfRecipients">Recipients: (click on a username to remove)</label>
+					<ol id="listOfRecipients" data-bind="foreach: recipients">
+						<li data-bind="text: name, attr: { 'data-id': id }, click: $root.removeRecipients"></li>
+					</ol>
+					
+					<label for="msg">Type a message:</label>
+					<textarea class="form-control" id="msg" rows="3"></textarea>
+					<p id="msgUpdate">Click to send a message</p>
+					<button type="submit" id="send" data-bind="click: sendMessage" class="btn btn-success">Send Message</button>
+
+				</div>
+			</div>
+
+			<div class="col-sm-4 holder" data-bind="visible: userOnline">
+				<h2>Conversation</h2>
+				<p id="newMessageText"></p>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>From</th>
+							<th>Time</th>
+							<th>Recipients</th>
+							<th>Message</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: messages">
+						<tr>
+							<td data-bind="text: from"></td>
+							<td data-bind="text: time"></td>
+							<td data-bind="text: to"></td>
+							<td data-bind="text: msg"></td>
+						</tr>
+					</tbody>
+					</table>
+			</div>
+
+			<div class="col-sm-4 holder" data-bind="visible: userOnline">
+				<h2>Users Online</h2>
+				<p id="userUpdate" data-bind="text: userUpdate">No users online</p>
+				<ol id="usersOnline" data-bind="foreach: users">
+					<li data-bind="text: name, attr: { 'data-id': id }"></li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	
+<script src="js/knockout-3.1.0.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
